@@ -1,0 +1,1090 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact Us — CatchGuard Cybersecurity</title>
+<meta name="description" content="Get in touch with CatchGuard's cybersecurity experts. Schedule a consultation, request a quote, or learn more about our Pay-on-Catch security testing services in the UAE.">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<style>
+/* ===== Theme ===== */
+:root{
+  --bg:#0b1020;
+  --bg-2:#0e1530;
+  --card:#111835;
+  --line:#223063;
+  --brand:#7aa2ff;
+  --brand-2:#9bb7ff;
+  --text:#f4f6fb;
+  --sub:#c7cbe1;
+  --muted:#98a2b3;
+  --ok:#41d6a0;
+  --warning:#ffd700;
+  --bad:#ff7a7a;
+  --radius:18px;
+  --shadow:0 10px 30px rgba(0,0,0,.3);
+  --gradient-primary: linear-gradient(135deg, #7aa2ff 0%, #9bb7ff 100%);
+  --gradient-card: linear-gradient(135deg, rgba(122, 162, 255, 0.1) 0%, rgba(155, 183, 255, 0.05) 100%);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(1200px 600px at 20% -10%, #162246 0, transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, #13204a 0, transparent 60%),
+    var(--bg);
+  line-height: 1.6;
+}
+
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+a{color:inherit;text-decoration:none;transition:all 0.3s ease}
+
+/* ===== Enhanced Utilities ===== */
+.btn{
+  display:inline-block; 
+  padding:14px 28px; 
+  border-radius:14px;
+  background:var(--gradient-primary); 
+  color:#0b1020; 
+  font-weight:700; 
+  border:0;
+  transition:all 0.3s ease;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+  box-shadow: 0 4px 15px rgba(122, 162, 255, 0.3);
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow: 0 8px 25px rgba(122, 162, 255, 0.4);
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn.ghost{
+  background:transparent;
+  border:2px solid var(--brand);
+  color:var(--brand);
+  box-shadow: 0 4px 15px rgba(122, 162, 255, 0.1);
+}
+
+.btn.ghost:hover{
+  background:var(--brand);
+  color:#0b1020;
+}
+
+.btn.success{
+  background:var(--ok);
+  color:#0b1020;
+}
+
+.btn.warning{
+  background:var(--warning);
+  color:#0b1020;
+}
+
+.badge{
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  padding:8px 16px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  color:var(--sub);
+  background:var(--gradient-card);
+  backdrop-filter: blur(10px);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.card{
+  background:var(--card); 
+  border:1px solid var(--line); 
+  border-radius:var(--radius);
+  box-shadow:var(--shadow); 
+  padding:24px;
+  position:relative;
+  overflow:hidden;
+  transition:all 0.3s ease;
+}
+
+.card:hover{
+  transform:translateY(-2px);
+  box-shadow: 0 15px 35px rgba(0,0,0,.3);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.grid{display:grid; gap:24px}
+.grid.cols-3{grid-template-columns:repeat(3,1fr)}
+.grid.cols-2{grid-template-columns:repeat(2,1fr)}
+
+@media(max-width:800px){.grid.cols-3,.grid.cols-2{grid-template-columns:1fr}}
+
+/* ===== Header (unified across site) ===== */
+.header{
+  position:sticky; top:0; z-index:50;
+  background:linear-gradient(180deg, rgba(11,16,32,.98), rgba(11,16,32,.85));
+  backdrop-filter: blur(20px) saturate(1.5);
+  border-bottom:1px solid rgba(122, 162, 255, 0.2);
+}
+.navbar{display:flex; align-items:center; justify-content:space-between; padding:16px 0}
+.brand{font-weight:900; letter-spacing:.4px; font-size:22px}
+.brand em{font-style:normal; color:var(--brand)}
+.nav-links{display:flex; gap:28px; align-items:center}
+.nav-links a{color:var(--sub); font-weight:600; transition: color .3s ease}
+.nav-links a:hover{color:var(--brand)}
+.nav-links a.active{color:var(--brand)}
+#nav-toggle{display:none}
+.burger{
+  display:none; border:1px solid var(--line); padding:10px 12px; border-radius:12px;
+  color:var(--sub); background:var(--card); cursor:pointer; transition: all .3s ease;
+}
+.burger:hover{border-color:var(--brand); color:var(--brand)}
+
+@media(max-width:860px){
+  .burger{display:inline-block}
+  .nav-links{
+    position:fixed; inset:78px 20px auto 20px; display:none; flex-direction:column; gap:16px;
+    background:var(--bg-2); border:1px solid var(--line); border-radius:16px; padding:18px; box-shadow:var(--shadow);
+    backdrop-filter: blur(20px);
+  }
+  #nav-toggle:checked + label + .nav-links{display:flex}
+}
+
+/* ===== Page Header ===== */
+.page-header{
+  padding:70px 0 40px;
+  text-align:center;
+  position:relative;
+}
+
+.page-header::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:radial-gradient(ellipse at center, rgba(122,162,255,.12) 0%, transparent 65%)
+}
+
+.page-header h1{
+  margin:0 0 10px 0;
+  font-size:42px;
+  font-weight:900;
+  background:linear-gradient(135deg, var(--text) 0%, var(--brand-2) 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text
+}
+
+.page-header p{
+  color:var(--sub);
+  max-width:60ch;
+  margin:0 auto;
+  font-size:18px;
+}
+
+/* ===== Contact Methods ===== */
+.contact-methods {
+  margin: 40px 0;
+}
+
+.method-card {
+  text-align: center;
+  padding: 32px 24px;
+  transition: all 0.3s ease;
+}
+
+.method-card .icon {
+  font-size: 48px;
+  color: var(--brand);
+  margin-bottom: 16px;
+  display: block;
+}
+
+.method-card h3 {
+  color: var(--text);
+  margin: 0 0 8px 0;
+  font-size: 20px;
+}
+
+.method-card p {
+  color: var(--sub);
+  margin: 8px 0 16px 0;
+  font-size: 14px;
+}
+
+.method-card .contact-link {
+  color: var(--brand);
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.method-card:hover .contact-link {
+  text-decoration: underline;
+}
+
+/* ===== Contact Form ===== */
+.contact-section {
+  padding: 60px 0;
+}
+
+.contact-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+@media(max-width:900px){
+  .contact-wrapper{grid-template-columns:1fr}
+}
+
+.form-container {
+  position: relative;
+}
+
+.contact-form {
+  display: grid;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media(max-width:600px){
+  .form-row{grid-template-columns:1fr}
+}
+
+label {
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text);
+  font-size: 14px;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(122, 162, 255, 0.1);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+
+.form-notice {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+/* ===== Info Panel ===== */
+.info-panel h3 {
+  color: var(--brand);
+  margin: 0 0 16px 0;
+  font-size: 24px;
+}
+
+.info-panel p {
+  color: var(--sub);
+  margin: 16px 0;
+}
+
+.response-time {
+  background: var(--gradient-card);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin: 24px 0;
+  border: 1px solid var(--line);
+}
+
+.response-time h4 {
+  color: var(--brand);
+  margin: 0 0 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.contact-info {
+  margin: 32px 0;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0;
+  color: var(--sub);
+}
+
+.info-item i {
+  color: var(--brand);
+  width: 20px;
+  text-align: center;
+}
+
+/* ===== FAQ Section ===== */
+.faq-section {
+  margin: 60px 0;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--line);
+  margin: 16px 0;
+}
+
+.faq-question {
+  width: 100%;
+  padding: 20px 0;
+  background: none;
+  border: none;
+  text-align: left;
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: color 0.3s ease;
+}
+
+.faq-question:hover {
+  color: var(--brand);
+}
+
+.faq-answer {
+  padding: 0 0 20px 0;
+  color: var(--sub);
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.faq-answer.open {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.faq-icon {
+  transition: transform 0.3s ease;
+}
+
+.faq-question.active .faq-icon {
+  transform: rotate(45deg);
+}
+
+/* ===== Footer ===== */
+.footer{
+  background: var(--bg-2);
+  border-top: 1px solid var(--line);
+  padding: 40px 0;
+  margin-top: 80px;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  margin-bottom: 32px;
+}
+
+.footer-section h4 {
+  color: var(--brand);
+  font-size: 18px;
+  margin: 0 0 16px 0;
+  font-weight: 700;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section li {
+  margin: 8px 0;
+}
+
+.footer-section a {
+  color: var(--sub);
+  transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+  color: var(--brand);
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--line);
+  padding-top: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-bottom .muted {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+@media(max-width:800px){
+  .footer-content{grid-template-columns: repeat(2, 1fr)}
+}
+
+@media(max-width:600px){
+  .footer-content{grid-template-columns: 1fr}
+  .footer-bottom{flex-direction: column; text-align: center}
+}
+
+/* ===== Animations ===== */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== Loading States ===== */
+.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255,255,255,.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===== Success/Error Messages ===== */
+.message {
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin: 20px 0;
+  display: none;
+  align-items: center;
+  gap: 10px;
+}
+
+.message.success {
+  background: rgba(65, 214, 160, 0.1);
+  border: 1px solid var(--ok);
+  color: var(--ok);
+}
+
+.message.error {
+  background: rgba(255, 122, 122, 0.1);
+  border: 1px solid var(--bad);
+  color: var(--bad);
+}
+
+.message.show {
+  display: flex;
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<header class="header">
+  <div class="container navbar">
+    <div class="brand" aria-label="brand">
+      <a href="index.html">Catch<em>Guard</em></a>
+    </div>
+
+    <input type="checkbox" id="nav-toggle" aria-label="Open menu">
+    <label for="nav-toggle" class="burger" aria-controls="menu" aria-expanded="false">
+      <i class="fas fa-bars"></i> Menu
+    </label>
+
+    <nav id="menu" class="nav-links" role="navigation" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html" class="active">Contact Us</a>
+      <a href="book-consultation.html" class="btn">Book Consultation</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== Page Header ===== -->
+<section class="page-header">
+  <div class="container">
+    <span class="badge">
+      <i class="fas fa-phone-alt"></i>
+      Ready to secure your organization?
+    </span>
+    <h1>Get in touch with our experts</h1>
+    <p>Schedule a consultation, request a quote, or learn more about how our Pay-on-Catch model can revolutionize your cybersecurity approach.</p>
+  </div>
+</section>
+
+<!-- ===== Contact Methods ===== -->
+<section class="contact-methods">
+  <div class="container">
+    <div class="grid cols-3">
+      <div class="card method-card scroll-reveal">
+        <i class="fas fa-phone-alt icon"></i>
+        <h3>Call Us Direct</h3>
+        <p>Speak with our cybersecurity experts</p>
+        <a href="tel:+971-XXX-XXXX" class="contact-link">+971 XXX XXXX</a>
+      </div>
+      
+      <div class="card method-card scroll-reveal">
+        <i class="fas fa-envelope icon"></i>
+        <h3>Send an Email</h3>
+        <p>Get detailed responses to your questions</p>
+        <a href="mailto:contact@catchguard.ae" class="contact-link">contact@catchguard.ae</a>
+      </div>
+      
+      <div class="card method-card scroll-reveal">
+        <i class="fas fa-calendar-alt icon"></i>
+        <h3>Book a Meeting</h3>
+        <p>Schedule a personalized consultation</p>
+        <a href="book-consultation.html" class="contact-link">Schedule Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Main Contact Section ===== -->
+<section class="contact-section">
+  <div class="container">
+    <div class="contact-wrapper">
+      <!-- Contact Form -->
+      <div class="form-container scroll-reveal">
+        <div class="card">
+          <h2 style="margin: 0 0 24px 0; color: var(--brand);">
+            <i class="fas fa-paper-plane"></i> Send us a message
+          </h2>
+          
+          <div id="success-message" class="message success">
+            <i class="fas fa-check-circle"></i>
+            <span>Thank you! We'll get back to you within 24 hours.</span>
+          </div>
+          
+          <div id="error-message" class="message error">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>Sorry, there was an error. Please try again or contact us directly.</span>
+          </div>
+          
+          <form class="contact-form" id="contactForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">First Name *</label>
+                <input type="text" id="firstName" name="firstName" required>
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name *</label>
+                <input type="text" id="lastName" name="lastName" required>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required>
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="+971 5X XXX XXXX">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="company">Company / Organization</label>
+              <input type="text" id="company" name="company">
+            </div>
+            
+            <div class="form-group">
+              <label for="inquiry">Type of Inquiry *</label>
+              <select id="inquiry" name="inquiry" required>
+                <option value="">Select your inquiry type...</option>
+                <option value="pentest">Penetration Testing</option>
+                <option value="mobile">Mobile App Security</option>
+                <option value="api">API Security Testing</option>
+                <option value="cloud">Cloud Security Review</option>
+                <option value="compliance">Compliance Assessment</option>
+                <option value="consultation">General Consultation</option>
+                <option value="pricing">Pricing Information</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="budget">Estimated Budget (Optional)</label>
+              <select id="budget" name="budget">
+                <option value="">Select budget range...</option>
+                <option value="under-10k">Under $10,000</option>
+                <option value="10k-25k">$10,000 - $25,000</option>
+                <option value="25k-50k">$25,000 - $50,000</option>
+                <option value="50k-100k">$50,000 - $100,000</option>
+                <option value="over-100k">Over $100,000</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="message">Message / Project Details *</label>
+              <textarea id="message" name="message" placeholder="Please describe your security testing needs, target systems, timeline, and any specific requirements..." required></textarea>
+            </div>
+            
+            <div class="checkbox-group">
+              <input type="checkbox" id="terms" name="terms" required>
+              <label for="terms" style="font-weight: normal; font-size: 14px; margin-bottom: 0;">
+                I agree to the terms and authorize CatchGuard to contact me about cybersecurity services *
+              </label>
+            </div>
+            
+            <div class="checkbox-group">
+              <input type="checkbox" id="newsletter" name="newsletter">
+              <label for="newsletter" style="font-weight: normal; font-size: 14px; margin-bottom: 0;">
+                Subscribe to security insights and updates
+              </label>
+            </div>
+            
+            <button type="submit" class="btn" style="width: 100%; margin-top: 16px;">
+              <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+            
+            <p class="form-notice">
+              * Required fields. We respect your privacy and will never share your information.
+            </p>
+          </form>
+        </div>
+      </div>
+      
+      <!-- Info Panel -->
+      <div class="info-panel scroll-reveal">
+        <div class="card">
+          <h3><i class="fas fa-info-circle"></i> How we can help</h3>
+          <p>Our cybersecurity experts are ready to discuss your security challenges and provide tailored solutions using our innovative Pay-on-Catch model.</p>
+          
+          <div class="response-time">
+            <h4><i class="fas fa-clock"></i> Response Time</h4>
+            <p style="margin: 0; color: var(--sub);">We typically respond within 24 hours during business days. Urgent security matters are addressed immediately.</p>
+          </div>
+          
+          <div class="contact-info">
+            <div class="info-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Dubai, United Arab Emirates</span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-clock"></i>
+              <span>Sun - Thu: 9:00 AM - 6:00 PM GST</span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-shield-alt"></i>
+              <span>Licensed UAE Cybersecurity Provider</span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-award"></i>
+              <span>CISSP, CEH, OSCP Certified Team</span>
+            </div>
+          </div>
+          
+          <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--line);">
+            <h4 style="color: var(--brand); margin: 0 0 16px 0;">Emergency Security Response</h4>
+            <p style="color: var(--sub); margin: 0 0 16px 0;">If you're experiencing an active security incident:</p>
+            <a href="tel:+971-XXX-XXXX" class="btn warning" style="width: 100%;">
+              <i class="fas fa-exclamation-triangle"></i> Emergency Hotline
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ Section ===== -->
+<section class="faq-section">
+  <div class="container">
+    <div class="card scroll-reveal">
+      <h2 style="text-align: center; margin: 0 0 32px 0; color: var(--brand);">
+        <i class="fas fa-question-circle"></i> Frequently Asked Questions
+      </h2>
+      
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>How does the Pay-on-Catch model work?</span>
+          <i class="fas fa-plus faq-icon"></i>
+        </button>
+        <div class="faq-answer">
+          <p>You only pay when we find and validate real security vulnerabilities. If our testing doesn't uncover any exploitable issues, you pay nothing. This risk-sharing approach ensures you get genuine value from every security assessment.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>What types of testing do you offer?</span>
+          <i class="fas fa-plus faq-icon"></i>
+        </button>
+        <div class="faq-answer">
+          <p>We specialize in web application penetration testing, mobile app security assessment, API security testing, cloud security reviews, and compliance assessments. All testing follows OWASP guidelines and industry best practices.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>How long does a typical assessment take?</span>
+          <i class="fas fa-plus faq-icon"></i>
+        </button>
+        <div class="faq-answer">
+          <p>Timeline depends on scope, but typical assessments range from 3-8 business days. Web applications usually take 3-5 days, while mobile apps with APIs take 5-8 days. We provide detailed timelines during scoping.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Do you provide compliance mapping?</span>
+          <i class="fas fa-plus faq-icon"></i>
+        </button>
+        <div class="faq-answer">
+          <p>Yes, we map findings to relevant compliance frameworks including UAE Data Protection Law, ISO 27001, PCI DSS, and NIST standards. Our reports include executive summaries and technical remediation guidance.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>What happens after testing is complete?</span>
+          <i class="fas fa-plus faq-icon"></i>
+        </button>
+        <div class="faq-answer">
+          <p>You receive a comprehensive report with proof-of-exploit, remediation steps, and risk ratings. We provide a 7-day retest window after fixes are implemented, plus ongoing consultation support throughout your security journey.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4><i class="fas fa-shield-alt"></i> CatchGuard</h4>
+        <p style="color: var(--sub); margin: 16px 0;">Revolutionary pay-on-catch cybersecurity for UAE organizations.</p>
+        <p style="color: var(--muted); font-size: 14px;">Licensed and authorized security testing only.</p>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services.html">Web App Testing</a></li>
+          <li><a href="services.html">Mobile App Security</a></li>
+          <li><a href="services.html">API Security Testing</a></li>
+          <li><a href="services.html">Cloud Security</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="how-it-works.html">How It Works</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="mailto:contact@catchguard.ae"><i class="fas fa-envelope"></i> contact@catchguard.ae</a></li>
+          <li><a href="tel:+971-XXX-XXXX"><i class="fas fa-phone"></i> +971 XXX XXXX</a></li>
+          <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <div class="muted">© <span id="year"></span> CatchGuard.ae — All rights reserved.</div>
+      <div class="muted">UAE Cybersecurity Specialists | Never test without explicit written permission</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Set current year
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mobile menu functionality
+const navToggle = document.getElementById('nav-toggle');
+const burger = document.querySelector('.burger');
+
+navToggle.addEventListener('change', function() {
+  burger.setAttribute('aria-expanded', this.checked);
+});
+
+// Scroll reveal animations
+const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
+const revealOnScroll = () => {
+  scrollRevealElements.forEach(element => {
+    const elementTop = element.getBoundingClientRect().top;
+    const windowHeight = window.innerHeight;
+    
+    if (elementTop < windowHeight - 100) {
+      element.classList.add('revealed');
+    }
+  });
+};
+
+window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('load', revealOnScroll);
+
+// FAQ Functionality
+const faqQuestions = document.querySelectorAll('.faq-question');
+
+faqQuestions.forEach(question => {
+  question.addEventListener('click', () => {
+    const answer = question.nextElementSibling;
+    const icon = question.querySelector('.faq-icon');
+    
+    // Toggle current FAQ
+    const isOpen = answer.classList.contains('open');
+    
+    // Close all FAQs
+    document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.faq-question').forEach(q => q.classList.remove('active'));
+    
+    // Open current FAQ if it wasn't open
+    if (!isOpen) {
+      answer.classList.add('open');
+      question.classList.add('active');
+    }
+  });
+});
+
+// Form submission handling
+const contactForm = document.getElementById('contactForm');
+const successMessage = document.getElementById('success-message');
+const errorMessage = document.getElementById('error-message');
+
+contactForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const submitBtn = contactForm.querySelector('button[type="submit"]');
+  const originalText = submitBtn.innerHTML;
+  
+  // Show loading state
+  submitBtn.innerHTML = '<div class="spinner"></div> Sending...';
+  submitBtn.disabled = true;
+  submitBtn.classList.add('loading');
+  
+  // Hide previous messages
+  successMessage.classList.remove('show');
+  errorMessage.classList.remove('show');
+  
+  try {
+    // Simulate form submission (replace with actual endpoint)
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    // Show success message
+    successMessage.classList.add('show');
+    contactForm.reset();
+    
+    // Scroll to success message
+    successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    // Reset button after delay
+    setTimeout(() => {
+      submitBtn.innerHTML = originalText;
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('loading');
+    }, 1000);
+    
+  } catch (error) {
+    // Show error message
+    errorMessage.classList.add('show');
+    
+    // Reset button
+    submitBtn.innerHTML = originalText;
+    submitBtn.disabled = false;
+    submitBtn.classList.remove('loading');
+    
+    // Scroll to error message
+    errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+});
+
+// Form validation enhancements
+const inputs = contactForm.querySelectorAll('input, textarea, select');
+
+inputs.forEach(input => {
+  // Real-time validation feedback
+  input.addEventListener('blur', () => {
+    if (input.hasAttribute('required') && !input.value.trim()) {
+      input.style.borderColor = 'var(--bad)';
+      input.style.boxShadow = '0 0 0 3px rgba(255, 122, 122, 0.1)';
+    } else if (input.type === 'email' && input.value && !isValidEmail(input.value)) {
+      input.style.borderColor = 'var(--bad)';
+      input.style.boxShadow = '0 0 0 3px rgba(255, 122, 122, 0.1)';
+    } else {
+      input.style.borderColor = 'var(--ok)';
+      input.style.boxShadow = '0 0 0 3px rgba(65, 214, 160, 0.1)';
+    }
+  });
+  
+  input.addEventListener('focus', () => {
+    input.style.borderColor = 'var(--brand)';
+    input.style.boxShadow = '0 0 0 3px rgba(122, 162, 255, 0.1)';
+  });
+});
+
+// Email validation helper
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+// Phone number formatting (UAE format)
+const phoneInput = document.getElementById('phone');
+phoneInput.addEventListener('input', (e) => {
+  let value = e.target.value.replace(/\D/g, '');
+  if (value.startsWith('971')) {
+    value = value.replace(/^971/, '+971 ');
+  } else if (value.startsWith('0')) {
+    value = value.replace(/^0/, '+971 ');
+  }
+  
+  // Format: +971 5X XXX XXXX
+  if (value.startsWith('+971')) {
+    value = value.replace(/(\+971\s?)(\d{2})(\d{3})(\d{4})/, '$1$2 $3 $4');
+  }
+  
+  e.target.value = value;
+});
+
+// Auto-resize textarea
+const messageTextarea = document.getElementById('message');
+messageTextarea.addEventListener('input', () => {
+  messageTextarea.style.height = 'auto';
+  messageTextarea.style.height = messageTextarea.scrollHeight + 'px';
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(anchor.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// Progressive enhancement for form accessibility
+function enhanceAccessibility() {
+  // Add aria-describedby for form validation
+  inputs.forEach(input => {
+    if (input.hasAttribute('required')) {
+      input.setAttribute('aria-required', 'true');
+    }
+  });
+  
+  // Improve focus management
+  const firstInput = contactForm.querySelector('input');
+  if (firstInput) {
+    firstInput.focus();
+  }
+}
+
+// Initialize accessibility enhancements
+document.addEventListener('DOMContentLoaded', enhanceAccessibility);
+
+// Add loading animation for page transitions
+document.querySelectorAll('a:not([href^="#"]):not([href^="mailto:"]):not([href^="tel:"])').forEach(link => {
+  link.addEventListener('click', (e) => {
+    if (!e.ctrlKey && !e.metaKey) {
+      document.body.style.opacity = '0.8';
+      document.body.style.transition = 'opacity 0.3s ease';
+    }
+  });
+});
+</script>
+</body>
+</html>

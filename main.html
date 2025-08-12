@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureUAE - Pay Only When We Catch Vulnerabilities</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #FF0000;
+            --primary-green: #00FF41;
+            --primary-black: #000000;
+            --secondary-gold: #FFD700;
+            --bg-dark: #0a0a0a;
+            --bg-card: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #888888;
+            --accent-blue: #00D4FF;
+            --gradient-primary: linear-gradient(135deg, #FF0000 0%, #000000 100%);
+            --gradient-secondary: linear-gradient(135deg, #00FF41 0%, #00D4FF 100%);
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Sticky Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: var(--gradient-secondary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-green);
+        }
+
+        .lang-toggle {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle:hover {
+            border-color: var(--primary-green);
+        }
+
+        .cta-nav {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-nav:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(255, 0, 0, 0.1) 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 65, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
+            animation: pulse 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(0, 255, 65, 0.1);
+            color: var(--primary-green);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            line-height: 1.5;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            padding: 1rem 2rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-green);
+            color: var(--primary-green);
+        }
+
+        /* Value Propositions */
+        .value-props {
+            padding: 6rem 0;
+            background: var(--bg-dark);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .value-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-secondary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .value-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 255, 65, 0.3);
+        }
+
+        .value-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-secondary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .value-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .value-desc {
+            color: var(--text-secondary);
+        }
+
+        /* Process Section */
+        .process {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, rgba(255, 0, 0, 0.05) 100%);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 3rem;
+            color: var(--text-primary);
+        }
+
+        .process-flow {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+
+        .process-number {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1.5rem;
+            color: white;
+        }
+
+        .process-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .process-desc {
+            color: var(--text-secondary);
+        }
+
+        /* Industries Section */
+        .industries {
+            padding: 6rem 0;
+            background: var(--bg-dark);
+        }
+
+        .industry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .industry-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .industry-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-green);
+        }
+
+        .industry-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-green);
+        }
+
+        .industry-name {
+            font-weight: bold;
+            color: var(--text-primary);
+        }
+
+        /* Services Preview */
+        .services-preview {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.03) 0%, var(--bg-dark) 100%);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-blue);
+        }
+
+        .service-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .service-desc {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-link {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* CTA Banner */
+        .cta-banner {
+            padding: 4rem 0;
+            background: var(--gradient-primary);
+            text-align: center;
+        }
+
+        .cta-banner h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .cta-banner p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--primary-red);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Success Stories */
+        .success-stories {
+            padding: 6rem 0;
+            background: var(--bg-dark);
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .story-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .story-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .story-desc {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .story-metrics {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-green);
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Contact Section */
+        .contact-teaser {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, var(--bg-dark) 100%);
+            text-align: center;
+        }
+
+        .contact-options {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            padding: 1rem 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-btn:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .value-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-flow {
+                grid-template-columns: 1fr;
+            }
+
+            .industry-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .story-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-options {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Arabic RTL Support */
+        [dir="rtl"] {
+            direction: rtl;
+        }
+
+        [dir="rtl"] .nav-container {
+            flex-direction: row-reverse;
+        }
+
+        [dir="rtl"] .hero-content {
+            text-align: right;
+        }
+
+        [dir="rtl"] .value-card,
+        [dir="rtl"] .service-card {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">SecureUAE</div>
+            <ul class="nav-links">
+                <li><a href="main.html">Home</a></li>
+                <li><a href="aboutus.html">About Us</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="#process">Process</a></li>
+                <li><a href="#case-studies">Case Studies</a></li>
+                <li><a href="contactus.html">Contact</a></li>
+                <li><select class="lang-toggle" onchange="toggleLanguage(this.value)">
+                    <option value="en">EN</option>
+                    <option value="ar">العربية</option>
+                </select></li>
+            </ul>
+            <button class="cta-nav">Request Free Quote</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">🛡️ UAE's First Pay-On-Catch Cybersecurity</div>
+                <h1 class="hero-title">Pay Only When We Catch Vulnerabilities</h1>
+                <p class="hero-subtitle">We test your systems — you only pay when we find real threats. Zero risk, full value. Trusted by UAE enterprises and government bodies.</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary">Request Free Quote</button>
+                    <button class="btn-secondary">See How It Works</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Propositions -->
+    <section class="value-props">
+        <div class="container">
+            <div class="value-grid">
+                <div class="value-card">
+                    <div class="value-icon">💰</div>
+                    <h3 class="value-title">No Vulnerabilities = No Charge</h3>
+                    <p class="value-desc">Revolutionary pricing model - only pay when we discover actual security vulnerabilities in your systems.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🇦🇪</div>
+                    <h3 class="value-title">UAE-Compliant (NESA, NCA)</h3>
+                    <p class="value-desc">Full compliance with UAE National Electronic Security Authority and National Cybersecurity Authority standards.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🎯</div>
+                    <h3 class="value-title">Expert Red Teamers</h3>
+                    <p class="value-desc">Elite cybersecurity professionals with proven track records in offensive security and threat simulation.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">📊</div>
+                    <h3 class="value-title">Real-Time Reporting</h3>
+                    <p class="value-desc">Live dashboard updates and detailed vulnerability reports with actionable remediation guidance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process" id="process">
+        <div class="container">
+            <h2 class="section-title">Our 4-Step Security Process</h2>
+            <div class="process-flow">
+                <div class="process-step">
+                    <div class="process-number">1</div>
+                    <h3 class="process-title">Scope</h3>
+                    <p class="process-desc">Define testing parameters, systems, and objectives with your team to ensure comprehensive coverage.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-number">2</div>
+                    <h3 class="process-title">Simulate</h3>
+                    <p class="process-desc">Execute controlled attacks using advanced techniques to identify real-world vulnerabilities.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-number">3</div>
+                    <h3 class="process-title">Report</h3>
+                    <p class="process-desc">Deliver detailed findings with risk ratings, impact analysis, and step-by-step remediation guides.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-number">4</div>
+                    <h3 class="process-title">Fix</h3>
+                    <p class="process-desc">Provide ongoing support and re-testing to ensure vulnerabilities are properly addressed.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industries Section -->
+    <section class="industries">
+  <style>
+    .industries {
+      padding: 4rem 2rem;
+      background: #0a0a0a;
+      color: white;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .industry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .industry-card {
+      background: #121212;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .industry-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .industry-img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin: 0 auto 1rem auto;
+      display: block;
+      filter: invert(1); /* Ensures visibility on dark theme */
+    }
+
+    .industry-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+    }
+  </style>
+
+  <div class="container">
+    <h2 class="section-title">Industries We Secure</h2>
+    <div class="industry-grid">
+      <div class="industry-card">
+        <img src="https://tse3.mm.bing.net/th/id/OIP.DZN0VC1I2eJzm-0-UvbvsQHaHa?pid=Api" alt="Banking & Finance" class="industry-img">
+        <div class="industry-name">Banking & Finance</div>
+      </div>
+      <div class="industry-card">
+        <img src="https://tse1.mm.bing.net/th/id/OIP.6Qhd4DoUKz1qirrmfN2YmAHaFj?pid=Api" alt="Government" class="industry-img">
+        <div class="industry-name">Government</div>
+      </div>
+      <div class="industry-card">
+        <img src="https://tse2.mm.bing.net/th/id/OIP.yFcN6_wxf0bLfYuK5lMHcQHaHa?r=0&pid=Api" alt="Healthcare" class="industry-img">
+        <div class="industry-name">Healthcare</div>
+      </div>
+      <div class="industry-card">
+        <img src="https://tse1.mm.bing.net/th/id/OIP.WNoWWrQhCtGhzmVaAE3pegHaHW?r=0&pid=Api" alt="Oil & Gas" class="industry-img">
+        <div class="industry-name">Oil & Gas</div>
+      </div>
+      <div class="industry-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/906/906175.png" alt="Tech Startups" class="industry-img">
+        <div class="industry-name">Tech Startups</div>
+      </div>
+      <div class="industry-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/2989/2989838.png" alt="E-commerce" class="industry-img">
+        <div class="industry-name">E-commerce</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+    <!-- Services Preview -->
+    <section class="services-preview" id="services">
+        <div class="container">
+            <h2 class="section-title">Our Security Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3 class="service-title">Web & API Penetration Testing</h3>
+                    <p class="service-desc">Comprehensive testing of web applications and APIs to identify vulnerabilities before attackers do.</p>
+                    <a href="#" class="service-link">Learn More →</a>
+                </div>
+                <div class="service-card">
+                    <h3 class="service-title">Cloud Security Assessment</h3>
+                    <p class="service-desc">Secure your cloud infrastructure with thorough assessments of AWS, Azure, and GCP environments.</p>
+                    <a href="#" class="service-link">Learn More →</a>
+                </div>
+                <div class="service-card">
+                    <h3 class="service-title">Mobile App Security</h3>
+                    <p class="service-desc">Comprehensive security testing for iOS and Android applications across all attack vectors.</p>
+                    <a href="#" class="service-link">Learn More →</a>
+                </div>
+                <div class="service-card">
+                    <h3 class="service-title">Network Security Testing</h3>
+                    <p class="service-desc">Identify network vulnerabilities and misconfigurations that could expose your organization.</p>
+                    <a href="#" class="service-link">Comming Soon</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="cta-banner">
+        <div class="container">
+            <h2>Ready to Test Your Security?</h2>
+            <p>Schedule a free consultation and discover how our Pay-On-Catch model can strengthen your defenses.</p>
+            <button class="btn-white">Schedule Free Consultation</button>
+        </div>
+    </section>
+
+    <!-- Success Stories -->
+    <section class="success-stories" id="case-studies">
+        <div class="container">
+            <h2 class="section-title">Recent Success Stories</h2>
+            <div class="story-grid">
+                <div class="story-card">
+                    <h3 class="story-title">Major UAE Bank - Critical API Vulnerabilities</h3>
+                    <p class="story-desc">Discovered and helped remediate critical authentication bypass vulnerabilities in core banking APIs, preventing potential data breaches affecting thousands of customers.</p>
+                    <div class="story-metrics">
+                        <div class="metric">
+                            <div class="metric-number">7</div>
+                            <div class="metric-label">Critical Vulnerabilities</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-number">48h</div>
+                            <div class="metric-label">Remediation Time</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-number">100%</div>
+                            <div class="metric-label">Issues Resolved</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="story-card">
+                    <h3 class="story-title">Government Entity - Advanced Persistent Threat Simulation</h3>
+                    <p class="story-desc">Conducted comprehensive red team assessment revealing gaps in incident response procedures and network segmentation controls.</p>
+                    <div class="story-metrics">
+                        <div class="metric">
+                            <div class="metric-number">15</div>
+                            <div class="metric-label">Security Gaps Found</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-number">30</div>
+                            <div class="metric-label">Days Assessment</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-number">95%</div>
+                            <div class="metric-label">Security Improvement</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- Trusted Companies Logos Carousel -->
+<section class="company-carousel">
+  <style>
+    .company-carousel {
+        background: var(--bg-dark);
+        padding: 4rem 0;
+        overflow: hidden;
+        border-top: 1px solid rgba(255,255,255,0.05);
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .company-carousel h2 {
+        text-align: center;
+        font-size: 2rem;
+        color: var(--text-primary);
+        margin-bottom: 2rem;
+    }
+
+    .carousel-track {
+        white-space: nowrap;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .carousel-slide {
+        display: inline-block;
+        white-space: nowrap;
+        animation: scrollLogos 40s linear infinite;
+    }
+
+    .carousel-slide img {
+        height: 80px;
+        margin: 0 3rem;
+        vertical-align: middle;
+        opacity: 0.9;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .carousel-slide img:hover {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+
+    @keyframes scrollLogos {
+        0% { transform: translateX(0%); }
+        100% { transform: translateX(-50%); }
+    }
+  </style>
+
+  <div class="container">
+    <h2>Companies we have secured</h2>
+    <div class="carousel-track">
+      <div class="carousel-slide">
+        <img src="https://logos-world.net/wp-content/uploads/2020/07/Dell-Logo-700x394.png" alt="Dell">
+        <img src="https://pngimg.com/uploads/sony_logo/sony_logo_PNG2.png" alt="Sony">
+        <img src="https://clipartmax.com/png/full/200-2001206_cisco-cisco-high-res-logo.png" alt="Cisco">
+        <img src="https://1000logos.net/wp-content/uploads/2024/11/Amazon-Logo.png" alt="Amazon">
+        <img src="https://tdmuflc.edu.vn/wp-content/uploads/2023/Google-Logo.png" alt="Google">
+        <img src="https://logos-world.net/wp-content/uploads/2020/09/Oracle-Logo.png" alt="Oracle">
+        <!-- Duplicate for loop -->
+        <img src="https://logos-world.net/wp-content/uploads/2020/07/Dell-Logo-700x394.png" alt="Dell">
+        <img src="https://pngimg.com/uploads/sony_logo/sony_logo_PNG2.png" alt="Sony">
+        <img src="https://clipartmax.com/png/full/200-2001206_cisco-cisco-high-res-logo.png" alt="Cisco">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+    <!-- Contact Teaser -->
+    <section class="contact-teaser" id="contact">
+        <div class="container">
+            <h2 class="section-title">Get Started Today</h2>
+            <p>Ready to secure your organization with zero upfront risk? Contact us through your preferred channel.</p>
+            <div class="contact-options">
+                <a href="#" class="contact-btn">
+                    <span>📱</span> WhatsApp Chat
+                </a>
+                <a href="mailto:contact@secureUAE.com" class="contact-btn">
+                    <span>✉️</span> Email Us
+                </a>
+                <a href="tel:+971501234567" class="contact-btn">
+                    <span>📞</span> Call Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Language toggle functionality
+        function toggleLanguage(lang) {
+            const html = document.documentElement;
+            if (lang === 'ar') {
+                html.setAttribute('dir', 'rtl');
+                html.setAttribute('lang', 'ar');
+                // In a real implementation, you would load Arabic content here
+            } else {
+                html.setAttribute('dir', 'ltr');
+                html.setAttribute('lang', 'en');
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]')
+
+        </script>
+        <!-- Footer -->
+<footer class="site-footer">
+  <style>
+    .site-footer {
+      background: var(--bg-dark); /* uses your site's main dark color */
+      padding: 4rem 2rem;
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .footer-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: nowrap;
+      gap: 2rem;
+    }
+
+    .footer-section {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .footer-logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      background: linear-gradient(135deg, #00ff41, #00d4ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .footer-section h4 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: #ccc;
+    }
+
+    .footer-section a {
+      color: #aaa;
+      display: block;
+      text-decoration: none;
+      margin-bottom: 0.5rem;
+      transition: color 0.3s;
+    }
+
+    .footer-section a:hover {
+      color: #00ff41;
+    }
+
+    .footer-section p {
+      color: #aaa;
+      line-height: 1.6;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 3rem;
+      color: #666;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 1.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .footer-container {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+
+  <div class="footer-container">
+    <div class="footer-section">
+      <div class="footer-logo">SecureUAE</div>
+    </div>
+
+    <div class="footer-section">
+      <h4>Quick Links</h4>
+      <a href="/index.html#home">Home</a>
+      <a href="/services.html">Services</a>
+      <a href="/about.html">About Us</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+
+    <div class="footer-section">
+      <h4>Socials</h4>
+      <a href="#">LinkedIn</a>
+      <a href="#">X / Twitter</a>
+    </div>
+
+    <div class="footer-section">
+      <h4>Contact</h4>
+      <a href="mailto:contact@secureuae.com">contact@secureuae.com</a>
+      <a href="tel:+971501234567">+971 50 123 4567</a>
+    </div>
+
+    <div class="footer-section">
+      <h4>Location</h4>
+      <p>Dubai Internet City<br>Dubai, UAE</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 SecureUAE. All rights reserved.
+  </div>
+</footer>

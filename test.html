@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CatchGuard — Pay‑on‑Catch Cybersecurity</title>
+<meta name="description" content="Risk‑sharing pentests for UAE organizations. No vulnerabilities = No payment. Web & mobile testing, cloud reviews, red teaming, ASM, IR/DFIR, and more.">
+<style>
+/* ===== Theme ===== */
+:root{
+  --bg:#0b1020;
+  --bg-2:#0e1530;
+  --card:#111835;
+  --line:#223063;
+  --brand:#7aa2ff;
+  --brand-2:#9bb7ff;
+  --text:#f4f6fb;
+  --sub:#c7cbe1;
+  --muted:#98a2b3;
+  --ok:#41d6a0;
+  --bad:#ff7a7a;
+  --radius:18px;
+  --shadow:0 10px 30px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+  color:var(--text);
+  background:
+    radial-gradient(1200px 600px at 20% -10%, #162246 0, transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, #13204a 0, transparent 60%),
+    var(--bg);
+}
+.container{max-width:1120px;margin:0 auto;padding:0 20px}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+
+/* ===== Utilities ===== */
+.btn{
+  display:inline-block; padding:12px 16px; border-radius:14px;
+  background:var(--brand); color:#0b1020; font-weight:800; border:0;
+  transition:.2s transform, .2s filter;
+}
+.btn:hover{transform:translateY(-1px);filter:saturate(1.1)}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
+.btn.full{display:block; text-align:center}
+.badge{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;border:1px solid var(--line);color:var(--sub);background:rgba(255,255,255,.02)}
+.card{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  box-shadow:var(--shadow); padding:18px;
+}
+.grid{display:grid; gap:18px}
+.grid.cols-3{grid-template-columns:repeat(3,1fr)}
+.grid.cols-4{grid-template-columns:repeat(4,1fr)}
+.grid.cols-2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:1000px){.grid.cols-4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:800px){.grid.cols-3,.grid.cols-2{grid-template-columns:1fr}}
+
+/* ===== Header ===== */
+.header{
+  position:sticky; top:0; z-index:50;
+  background:linear-gradient(180deg, rgba(11,16,32,.95), rgba(11,16,32,.6));
+  backdrop-filter: blur(8px) saturate(1.2);
+  border-bottom:1px solid rgba(34,48,99,.5);
+}
+.navbar{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+.brand{font-weight:900; letter-spacing:.3px}
+.brand em{font-style:normal; color:var(--brand)}
+.nav-links{display:flex; gap:18px; align-items:center}
+.nav-links a{color:var(--sub)}
+/* mobile menu (checkbox hack) */
+#nav-toggle{display:none}
+.burger{display:none; border:1px solid var(--line); padding:8px 10px; border-radius:10px; color:var(--sub)}
+@media(max-width:860px){
+  .burger{display:inline-block}
+  .nav-links{
+    position:fixed; inset:64px 20px auto 20px;
+    background:var(--bg-2); border:1px solid var(--line); border-radius:16px;
+    padding:14px; display:none; flex-direction:column; gap:10px;
+  }
+  #nav-toggle:checked + label + .nav-links{display:flex}
+}
+
+/* ===== Hero ===== */
+.hero{padding:56px 0 30px}
+.hero-wrap{
+  display:grid; grid-template-columns:1.1fr .9fr; gap:26px; align-items:center;
+}
+@media(max-width:980px){.hero-wrap{grid-template-columns:1fr}}
+h1{font-size:44px; margin:.2em 0}
+.sub{color:var(--sub); max-width:52ch}
+.bullets{list-style:none; padding:0; margin:14px 0 0 0; color:var(--sub)}
+.bullets li{margin:4px 0}
+.panel{border-radius:var(--radius); overflow:hidden}
+.panel .card{height:100%}
+.kpi{display:flex; gap:10px; align-items:center; color:var(--muted); font-size:14px}
+
+/* ===== Logos ===== */
+.logos{opacity:.8; padding:10px 0 34px}
+.logo{height:28px; border-radius:8px; background:linear-gradient(90deg,#213264,#30458d)}
+
+/* ===== Sections ===== */
+.section{padding:20px 0 8px}
+.section h2{margin:6px 0 12px 0; font-size:28px}
+.section p.lead{color:var(--sub); margin-top:-4px}
+
+/* ===== Services ===== */
+.service h3{margin:.4em 0}
+.list{list-style:none; padding:0; margin:10px 0 0 0; color:var(--sub)}
+.list li{margin:6px 0; display:flex; gap:8px; align-items:flex-start}
+.list svg{flex:0 0 auto}
+
+/* ===== How it works ===== */
+.step h3{margin:.2em 0}
+
+/* ===== Pricing ===== */
+.price{font-size:24px; font-weight:900; margin:.2em 0}
+.card.hi{outline:2px solid var(--brand)}
+
+/* ===== Compliance & FAQ ===== */
+.table{width:100%; border-collapse:collapse; margin-top:10px}
+.table th,.table td{border-top:1px solid var(--line); padding:10px 6px; text-align:start; color:var(--sub)}
+.faq details{border:1px solid var(--line); border-radius:14px; padding:10px 12px; background:rgba(255,255,255,.02)}
+.faq details+details{margin-top:10px}
+.faq summary{cursor:pointer; font-weight:700}
+
+/* ===== Contact ===== */
+.form label{display:block; margin:10px 0}
+input,textarea{
+  width:100%; padding:12px; border-radius:12px;
+  background:#0e1530; border:1px solid var(--line); color:var(--text)
+}
+input:focus,textarea:focus{outline:2px solid var(--brand); border-color:transparent}
+small.muted{color:var(--muted)}
+
+/* ===== Footer ===== */
+.footer{display:flex; justify-content:space-between; gap:12px; margin:30px 0 40px; color:var(--muted)}
+@media(max-width:700px){.footer{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<header class="header">
+  <div class="container navbar">
+    <div class="brand" aria-label="brand">Catch<em>Guard</em>.ae</div>
+
+    <input type="checkbox" id="nav-toggle" aria-label="Open menu">
+    <label for="nav-toggle" class="burger" aria-controls="menu" aria-expanded="false">Menu ☰</label>
+
+    <nav id="menu" class="nav-links" role="navigation" aria-label="Primary">
+      <a href="#services">Services</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#compliance">Compliance</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact" class="btn">Get a Quote</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== Hero ===== -->
+<section class="hero">
+  <div class="container hero-wrap">
+    <div>
+      <span class="badge">No vulnerabilities = No payment</span>
+      <h1>Pay only if we catch real vulnerabilities.</h1>
+      <p class="sub">Risk‑sharing pentesting and continuous security for organizations in the UAE. Clear scope, proof‑of‑exploit, and retest included.</p>
+      <div style="display:flex; gap:12px; margin-top:14px">
+        <a href="#contact" class="btn">Book a scoping call</a>
+        <a href="#pricing" class="btn ghost">See pricing</a>
+      </div>
+      <ul class="bullets">
+        <li>✓ OWASP‑aligned web & mobile tests</li>
+        <li>✓ Cloud & DevSec reviews (AWS/Azure/GCP)</li>
+        <li>✓ Findings mapped to local regulations</li>
+      </ul>
+      <div class="kpi" style="margin-top:12px">
+        <span class="badge">7‑day retest</span>
+        <span class="badge">Ticket integrations</span>
+        <span class="badge">Executive readout</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="card">
+        <h3 style="margin:.2em 0">Quick estimate</h3>
+        <p class="sub" style="margin-top:-6px">Rough window based on typical scopes.</p>
+        <div class="grid cols-2" style="margin-top:8px">
+          <div class="card" style="background:transparent">
+            <div class="badge">Small web app</div>
+            <div class="price">3–5 days</div>
+            <small class="muted">Unauthenticated + basic auth flows</small>
+          </div>
+          <div class="card" style="background:transparent">
+            <div class="badge">Mobile + APIs</div>
+            <div class="price">5–8 days</div>
+            <small class="muted">Android/iOS + REST/GraphQL</small>
+          </div>
+        </div>
+        <p class="sub" style="margin-top:10px">Final proposal after scoping. No hidden fees.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Logos ===== -->
+<section class="logos">
+  <div class="container grid cols-5" style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px">
+    <div class="logo" title="placeholder logo"></div>
+    <div class="logo"></div>
+    <div class="logo"></div>
+    <div class="logo"></div>
+    <div class="logo"></div>
+  </div>
+</section>
+
+<!-- ===== Services ===== -->
+<section id="services" class="section">
+  <div class="container">
+    <h2>Services</h2>
+    <p class="lead">Choose fixed‑fee or Pay‑on‑Catch. Either way, remediation help and retest are included.</p>
+
+    <div class="grid cols-4" style="margin-top:14px">
+      <article class="card service">
+        <h3>Pay‑on‑Catch Pentest</h3>
+        <ul class="list">
+          <li>• Pay only for validated findings</li>
+          <li>• Agreed severity thresholds</li>
+          <li>• Proof‑of‑exploit with replay steps</li>
+        </ul>
+      </article>
+
+      <article class="card service">
+        <h3>Web & Mobile App Testing</h3>
+        <ul class="list">
+          <li>• OWASP guidance for web, iOS, Android</li>
+          <li>• API fuzzing & authz tests</li>
+          <li>• Store‑ready recommendations</li>
+        </ul>
+      </article>
+
+      <article class="card service">
+        <h3>Cloud & DevSec</h3>
+        <ul class="list">
+          <li>• AWS/Azure/GCP config reviews</li>
+          <li>• Kubernetes hardening</li>
+          <li>• Policy‑as‑code examples</li>
+        </ul>
+      </article>
+
+      <article class="card service">
+        <h3>Red / Purple Team</h3>
+        <ul class="list">
+          <li>• Objective‑based simulation</li>
+          <li>• Detection tuning & gaps</li>
+          <li>• Executive readout</li>
+        </ul>
+      </article>
+
+      <article class="card service">
+        <h3>Attack Surface Management</h3>
+        <ul class="list">
+          <li>• Continuous discovery</li>
+          <li>• Monthly “catch” mini‑tests</li>
+          <li>• Shadow IT findings</li>
+        </ul>
+      </article>
+
+      <article class="card service">
+        <h3>Incident Response & DFIR</h3>
+        <ul class="list">
+          <li>• Retainer & rapid triage</li>
+          <li>• Containment guidance</li>
+          <li>• Post‑incident hardening</li>
+        </ul>
+      </article>
+
+      <article class="card service">
+        <h3>OT / ICS Security</h3>
+        <ul class="list">
+          <li>• Read‑only data collection</li>
+          <li>• Segmentation checks</li>
+          <li>• Safe procedures for critical envs</li>
+        </ul>
+      </article>
+
+      <article class="card service">
+        <h3>vCISO & Architecture</h3>
+        <ul class="list">
+          <li>• Strategy & roadmaps</li>
+          <li>• Risk registers & metrics</li>
+          <li>• Board‑level reporting</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== How it works ===== -->
+<section id="how" class="section">
+  <div class="container">
+    <h2>How it works</h2>
+    <div class="grid cols-4" style="margin-top:12px">
+      <article class="card step">
+        <h3>01 — Scoping</h3>
+        <p class="sub">Targets, rules‑of‑engagement, and severity thresholds agreed up front.</p>
+      </article>
+      <article class="card step">
+        <h3>02 — Testing</h3>
+        <p class="sub">Manual + assisted techniques aligned to industry standards.</p>
+      </article>
+      <article class="card step">
+        <h3>03 — Findings</h3>
+        <p class="sub">Fix‑first write‑ups with code/config examples and ticket-ready details.</p>
+      </article>
+      <article class="card step">
+        <h3>04 — Retest</h3>
+        <p class="sub">Validation within 7 days and evidence of closure.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Pricing ===== -->
+<section id="pricing" class="section">
+  <div class="container">
+    <h2>Pricing</h2>
+    <div class="grid cols-3" style="margin-top:12px">
+      <article class="card hi">
+        <h3>Pay‑on‑Catch</h3>
+        <div class="price">No vulnerabilities = No payment</div>
+        <ul class="list">
+          <li>• Pay per validated finding</li>
+          <li>• Proof‑of‑exploit included</li>
+          <li>• 7‑day retest SLA</li>
+        </ul>
+        <a href="#contact" class="btn full" style="margin-top:10px">Start risk‑free</a>
+      </article>
+
+      <article class="card">
+        <h3>Fixed‑Fee Pentest</h3>
+        <div class="price">From AED 18,000</div>
+        <ul class="list">
+          <li>• Scope‑based sizing</li>
+          <li>• Detailed report + exec readout</li>
+          <li>• Quick re‑scan</li>
+        </ul>
+        <a href="#contact" class="btn full" style="margin-top:10px">Request a quote</a>
+      </article>
+
+      <article class="card">
+        <h3>Continuous Pentest</h3>
+        <div class="price">From AED 7,500 / mo</div>
+        <ul class="list">
+          <li>• Monthly micro‑engagements</li>
+          <li>• Ticket integrations</li>
+          <li>• Attack surface trends</li>
+        </ul>
+        <a href="#contact" class="btn full" style="margin-top:10px">Talk to us</a>
+      </article>
+    </div>
+    <p class="sub" style="margin-top:10px">Final pricing depends on targets, depth, and environment complexity.</p>
+  </div>
+</section>
+
+<!-- ===== Compliance ===== -->
+<section id="compliance" class="section">
+  <div class="container">
+    <h2>Compliance spotlight</h2>
+    <p class="lead">Each finding is labeled for local regulations and privacy impact to support audits and leadership reviews.</p>
+    <div class="card" style="margin-top:12px">
+      <table class="table">
+        <thead>
+          <tr><th>Domain</th><th>What we map</th><th>How it helps</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Access Control</td><td>Auth flows, SSO, privilege boundaries</td><td>Clarifies risk & ownership</td></tr>
+          <tr><td>Vulnerability Mgmt</td><td>Severity, evidence, retest status</td><td>Accelerates closure</td></tr>
+          <tr><td>App Security</td><td>OWASP categories, CWE, CVSS notes</td><td>Developer‑ready fixes</td></tr>
+          <tr><td>Privacy Impact</td><td>Personal‑data exposure flags</td><td>Supports PDPL obligations</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section id="faq" class="section">
+  <div class="container">
+    <h2>FAQs</h2>
+    <div class="faq">
+      <details>
+        <summary>What counts as a “catch” under Pay‑on‑Catch?</summary>
+        <p class="sub">A validated, reproducible vulnerability in agreed scope and severity. We define thresholds during scoping.</p>
+      </details>
+      <details>
+        <summary>Is production testing safe?</summary>
+        <p class="sub">We prefer staging, but with proper guardrails we can test production with minimal impact.</p>
+      </details>
+      <details>
+        <summary>Do you integrate with our ticketing system?</summary>
+        <p class="sub">Yes—findings can be pushed to Jira, Azure DevOps, or ServiceNow with references and remediation notes.</p>
+      </details>
+      <details>
+        <summary>How fast is retesting?</summary>
+        <p class="sub">Within 7 business days for items in scope. Critical issues get priority.</p>
+      </details>
+      <details>
+        <summary>Will we get an executive summary?</summary>
+        <p class="sub">Yes, every engagement includes an exec readout with top risks and next steps.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Contact ===== -->
+<section id="contact" class="section">
+  <div class="container">
+    <h2>Book a scoping call</h2>
+    <div class="grid cols-2" style="margin-top:12px">
+      <form class="card form" onsubmit="return false" aria-label="Contact form">
+        <label>Full name
+          <input required placeholder="Jane Doe" aria-label="Full name">
+        </label>
+        <label>Work email
+          <input type="email" required placeholder="jane@company.ae" aria-label="Work email">
+        </label>
+        <label>Scope / targets
+          <textarea rows="5" placeholder="e.g., 2 web apps, Android app, 15 APIs, cloud review" aria-label="Scope"></textarea>
+        </label>
+        <button class="btn">Send request</button>
+        <small class="muted">We reply within one business day.</small>
+      </form>
+
+      <div class="card">
+        <h3 style="margin:.4em 0">Why teams choose us</h3>
+        <ul class="list">
+          <li>• Risk‑sharing pricing and transparent SLAs</li>
+          <li>• Clear, fix‑first reporting for developers</li>
+          <li>• Authorised testing only, with formal approvals</li>
+        </ul>
+        <p class="sub" style="margin-top:8px">Prefer email? contact@catchguard.ae</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="container footer">
+  <div>© <span id="y"></span> CatchGuard.ae — All rights reserved.</div>
+  <div class="muted">Authorized security testing only. Never test systems without explicit written permission.</div>
+</footer>
+
+<script>
+  // set current year without adding any framework
+  document.getElementById('y').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
